@@ -34,7 +34,7 @@ void init(void)
 {
 	glClearColor(1.0, 1.0, 1.0, 0.0);
 	glMatrixMode(GL_PROJECTION);
-	glOrtho(-20.0, 780.0, 0.0, 600.0, -1.0, 1.0);
+	glOrtho(0.0, 780.0, 0.0, 600.0, -1.0, 1.0);
 	Screen::set_width(780);
 	Screen::set_height(600);
 }
@@ -44,7 +44,7 @@ void reshape(int w, int h)
 	glViewport(0, 0, (GLsizei)w, (GLsizei)h);
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
-	glOrtho(-20.0, w, 0.0, h, -1.0, 1.0);
+	glOrtho(0.0, w, 0.0, h, -1.0, 1.0);
 
 	Screen::set_width(w);
 	Screen::set_height(h);
@@ -72,7 +72,6 @@ public:
 		for (auto& object : objects) {
 			object.second->update();
 		}
-		glutPostRedisplay();
 		glutPostRedisplay();
 	}
 
@@ -177,90 +176,56 @@ public:
 	}
 };
 
-class Square : public Object {
+class Strada : public Object {
 private:
-	Point centru;
+	// Punctul la care se imparte banda.
+	// Banda e formata din doua linii care sunt translatate in jos.
+	// Punctul de separare este initial la limita de sus a ecranului.
+	// Cand punctul ajunge in limita de jos, liniile sunt resetate.
+	// Poz banda este un procent din spatiul de pe ecran.
+	double poz_banda;
 
-	double latura;
-
-	double viteza_x;
-	double viteza_y;
-
-	double unghi_rotatie;
-	double viteza_rotatie;
 public:
-	Square(double centru_x, double centru_y, double latura,
-		double viteza_x, double viteza_y, double unghi_rotatie,
-		double viteza_rotatie) {
+	Strada(double poz_banda) : poz_banda(poz_banda) { ; }
 
-		this->centru.setX(centru_x);
-		this->centru.setY(centru_y);
-		this->latura = latura;
-		this->viteza_x = viteza_x;
-		this->viteza_y = viteza_y;
-		this->unghi_rotatie = unghi_rotatie;
-		this->viteza_rotatie = viteza_rotatie;
-	}
+	void draw() {
+		// asfalt
+		glColor3f(0.2, 0.2, 0.2);
+		glRectf(0., 0., Screen::get_width(), Screen::get_height());
 
-	void update(void) {
-		centru.setX(centru.getX() + viteza_x);
-		if (centru.getX() < 0.0 || centru.getX() > 750.0) {
-			viteza_x = -viteza_x;
-			viteza_rotatie = -viteza_rotatie;
-		}
-		unghi_rotatie += viteza_rotatie;
-	}
+		// iarba
+		glColor3f(0, 0.4, 0);
+		glRectf(0., 0., Screen::get_width() / 5, Screen::get_height());
+		glRectf(4 * Screen::get_width() / 5, 0., Screen::get_width(), Screen::get_height());
 
-	void draw() override {
+		// banda de separare
 		glPushMatrix();
-		glTranslated(centru.getX(), centru.getY(), 0.0);
-		glRotated(unghi_rotatie, 0.0, 0.0, 1.0);
-		glColor3f(1.0, 0.0, 0.0);
-		glRecti(-latura / 2.0, -latura / 2.0,
-			latura / 2.0, latura / 2.0);
+		glTranslated(0, -poz_banda, 0);
+		
+		glColor3f(1, 1, 1);
+		
+		glEnable(GL_LINE_STIPPLE);
+		glLineWidth(20);
+		glLineStipple(7, 0xFFFC);
+		
+		glBegin(GL_LINES);
+
+		glVertex2d(Screen::get_width() / 2.0, 0);
+		glVertex2d(Screen::get_width() / 2.0, Screen::get_height() + 7 * 16);
+
+		glEnd();
+		
 		glPopMatrix();
 	}
 
-	void mouse(int button, int state, int x, int y) {
-		switch (button) {
-		case GLUT_LEFT_BUTTON:
-			if (state == GLUT_DOWN) {
-				viteza_x = -abs(viteza_x);
-				viteza_rotatie = abs(viteza_rotatie);
-			}
-			break;
-		case GLUT_RIGHT_BUTTON:
-			if (state == GLUT_DOWN) {
-				viteza_x = abs(viteza_x);
-				viteza_rotatie = -abs(viteza_rotatie);
-			}
-			break;
-		default:
-			break;
+	void update() {
+		poz_banda += 0.1;
+		if (poz_banda >= 7 * 16) {
+			poz_banda = 0;
 		}
 	}
-};
 
-class Line : public Object {
-private:
-	Point A;
-	Point B;
-public:
-	Line(double xA, double yA, double xB, double yB) : A(xA, yA), B(xB, yB) { ; }
-
-	void draw() {
-		glColor3f(0, 0, 0);
-		glBegin(GL_LINES);
-		glVertex2i(A.getX(), A.getY());
-		glVertex2i(B.getX(), B.getY());
-		glEnd();
-	}
-
-	void update() { ; }
 	void mouse(int button, int state, int x, int y) { ; }
-
-	Point getA() { return A; }
-	Point getB() { return B; }
 };
 
 void main(int argc, char** argv)
@@ -272,11 +237,12 @@ void main(int argc, char** argv)
 	glutCreateWindow("Patrat care se rostogoleste");
 	init();
 
-	shared_ptr<Square> square1 = make_shared<Square>(Square(0, 100, 20, 0.05, 0, 0, -0.06));
-	shared_ptr<Line> line1 = make_shared<Line>(Line(-30, 100, 780, 100));
+	// shared_ptr<Square> square1 = make_shared<Square>(Square(0, 100, 20, 0.05, 0, 0, -0.06));
+	shared_ptr<Strada> strada = make_shared<Strada>(Strada(0));
+	// shared_ptr<Line> line1 = make_shared<Line>(Line(Screen::get_width() / 2, 0, Screen::get_width() / 2, Screen::get_height() / 2));
 
-	Scene::add_object("square1", square1);
-	Scene::add_object("line1", line1);
+	// Scene::add_object("square1", square1);
+	Scene::add_object("strada", strada);
 
 	glutIdleFunc(Scene::update);
 	glutDisplayFunc(Scene::draw);
