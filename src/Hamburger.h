@@ -25,9 +25,9 @@ public:
         glPushMatrix();
 
         glTranslated(centru.getX(), centru.getY(), 0);
+        glScaled(0.3, 0.3, 1);
         glRotated(angle, 0, 0, 1);
         glTranslated(0, 15, 0);
-
 
         // top bun
         glColor3f(1.0, 0.8, 0.0);

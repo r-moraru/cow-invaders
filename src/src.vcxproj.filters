@@ -1019,6 +1019,12 @@
     <ClInclude Include="Hamburger.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Pahar.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Healthbar.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="Cows.h">
       <Filter>Header Files</Filter>
     </ClInclude>

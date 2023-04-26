@@ -13,7 +13,8 @@
 #include "Scene.h"
 using namespace std;
 
-class Cow : public Object {
+class Cow : public Object
+{
 private:
 	Point centru;
 	double unghi_rotatie;
@@ -21,8 +22,10 @@ private:
 	static vector<Point> puncte_vaca;
 	double culoareR, culoareG, culoareB;
 	bool ochi_rosu;
+
 public:
-	Cow(double centru_x, double centru_y, double unghi_rotatie, double culoareR, double culoareG, double culoareB, bool ochi_rosu, int marime) {
+	Cow(double centru_x, double centru_y, double unghi_rotatie, double culoareR, double culoareG, double culoareB, bool ochi_rosu, int marime)
+	{
 		this->centru.setX(centru_x);
 		this->centru.setY(centru_y);
 		this->unghi_rotatie = unghi_rotatie;
@@ -33,20 +36,23 @@ public:
 		this->ochi_rosu = ochi_rosu;
 	}
 
-	static void init() {
+	static void init()
+	{
 		ifstream vaca_txt("vaca.txt");
-		if (vaca_txt.is_open()) {
+		if (vaca_txt.is_open())
+		{
 			int x, y;
-			while (vaca_txt) {
+			while (vaca_txt)
+			{
 				vaca_txt >> x >> y;
 				puncte_vaca.push_back(Point(x, y));
 			}
 			vaca_txt.close();
-			std::cout << puncte_vaca.size();
 		}
 	}
 
-	void draw() override {
+	void draw()
+	{
 		glPushMatrix();
 		glTranslated(centru.getX(), centru.getY(), 0.0);
 		glRotated(unghi_rotatie, 0.0, 0.0, 1.0);
@@ -54,28 +60,34 @@ public:
 
 		glPointSize(1.0 * marime);
 		glBegin(GL_POINTS);
-		for (int i = 0; i < 136; i++) {
+		for (int i = 0; i < 136; i++)
+		{
 			glVertex2i(puncte_vaca[i].getX() * marime, puncte_vaca[i].getY() * marime);
 		}
 		glColor3f(1, 0.65, 0.75);
-		for (int i = 136; i < 167; i++) {
+		for (int i = 136; i < 167; i++)
+		{
 			glVertex2i(puncte_vaca[i].getX() * marime, puncte_vaca[i].getY() * marime);
 		}
 		glColor3f(culoareR, culoareG, culoareB);
-		for (int i = 167; i < 264; i++) {
+		for (int i = 167; i < 264; i++)
+		{
 			glVertex2i(puncte_vaca[i].getX() * marime, puncte_vaca[i].getY() * marime);
 		}
-		if (ochi_rosu) {
-			glColor3f(1,0,0);
+		if (ochi_rosu)
+		{
+			glColor3f(1, 0, 0);
 		}
-		else {
+		else
+		{
 			glColor3f(0, 0, 0);
 		}
-		
-		for (int i = 264; i < puncte_vaca.size(); i++) {
+
+		for (int i = 264; i < puncte_vaca.size(); i++)
+		{
 			glVertex2i(puncte_vaca[i].getX() * marime, puncte_vaca[i].getY() * marime);
 		}
-		
+
 		glEnd();
 		glFlush();
 
