@@ -468,6 +468,7 @@ cd "$(ProjectDir)/lib/x64/SOIL" &amp; xcopy /c /y *.dll *.lib</Command>
     <ClInclude Include="include\loadShaders.h" />
     <ClInclude Include="include\SOIL.h" />
     <ClInclude Include="Object.h" />
+    <ClInclude Include="Pahar.h" />
     <ClInclude Include="Point.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="Screen.h" />
