@@ -32,12 +32,15 @@ void main(int argc, char **argv)
     shared_ptr<Hamburger> hamburger = make_shared<Hamburger>(Hamburger(300, 300));
     shared_ptr<Cow> cow = make_shared<Cow>(Cow(150, 150, 0));
     shared_ptr<Pahar> pahar = make_shared<Pahar>(Pahar(435, 200));
+    shared_ptr<Cow> cow1 = make_shared<Cow>(Cow(150, 150, 0, 1, 1, 1, false, 5));
+    shared_ptr<Cow> cow2 = make_shared<Cow>(Cow(450, 450, 0, 0, 0, 0, true, 10));
 
     // Scene::add_object("square1", square1);
     Scene::add_object("strada", strada);
     Scene::add_object("xamburger", hamburger);
-    Scene::add_object("zow1", cow);
     Scene::add_object("zahar", pahar);
+    Scene::add_object("zow1", cow1);
+    Scene::add_object("zow2", cow2);
 
     glutIdleFunc(Scene::update);
     glutDisplayFunc(Scene::draw);
