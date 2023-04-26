@@ -103,4 +103,18 @@ public:
         jump_speed -= fall_acceleration;
     }
     void mouse(int button, int state, int x, int y) { ; }
+
+    void keyPress(int key, int x, int y) { 
+        switch (key) {
+        case GLUT_KEY_LEFT:
+            this->centru.setX(this->centru.getX() - 5);
+            break;
+        case GLUT_KEY_RIGHT:
+            this->centru.setX(this->centru.getX() + 5);
+            break;
+        default:
+            break;
+        }
+    };
+    void keyUp(int key, int x, int y) { ; };
 };

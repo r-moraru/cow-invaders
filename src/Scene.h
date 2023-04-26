@@ -60,6 +60,21 @@ public:
         return objects[name];
     }
 
+    static void keyPress(int key, int x, int y) {
+        for (auto& object : objects)
+        {
+            object.second->keyPress(key, x, y);
+        }
+        glutPostRedisplay();
+    }
+
+    static void keyUp(int key, int x, int y) {
+        for (auto& object : objects)
+        {
+            object.second->keyUp( key, x, y);
+        }
+    }
+
     static int get_objects_len(void)
     {
         return objects.size();

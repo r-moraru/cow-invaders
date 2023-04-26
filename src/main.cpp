@@ -49,5 +49,7 @@ void main(int argc, char **argv)
     glutDisplayFunc(Scene::draw);
     glutReshapeFunc(reshape);
     glutMouseFunc(Scene::mouse);
+    glutSpecialFunc(Scene::keyPress);
+    glutSpecialUpFunc(Scene::keyUp);
     glutMainLoop();
 }
