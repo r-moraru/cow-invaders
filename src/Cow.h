@@ -45,7 +45,7 @@ public:
 		}
 	}
 
-	void draw() override {
+	void draw() {
 		glPushMatrix();
 		glTranslated(centru.getX(), centru.getY(), 0.0);
 		glRotated(unghi_rotatie, 0.0, 0.0, 1.0);

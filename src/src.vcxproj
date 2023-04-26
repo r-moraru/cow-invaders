@@ -170,6 +170,7 @@ cd "$(ProjectDir)/lib/x64/SOIL" &amp; xcopy /c /y *.dll *.lib</Command>
   <ItemGroup>
     <ClInclude Include="Cow.h" />
     <ClInclude Include="Hamburger.h" />
+    <ClInclude Include="Healthbar.h" />
     <ClInclude Include="include\glad\glad.h" />
     <ClInclude Include="include\GLFW\glfw3.h" />
     <ClInclude Include="include\GLFW\glfw3native.h" />
