@@ -468,6 +468,7 @@ cd "$(ProjectDir)/lib/x64/SOIL" &amp; xcopy /c /y *.dll *.lib</Command>
   </ItemGroup>
   <ItemGroup>
     <Text Include="include\glm\CMakeLists.txt" />
+    <Text Include="vaca.txt" />
   </ItemGroup>
   <ItemGroup>
     <None Include="example.frag" />
