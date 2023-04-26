@@ -10,6 +10,7 @@
 #include <cmath>
 #include <fstream>
 #include "Point.h"
+#include "Scene.h"
 using namespace std;
 
 class Cow : public Object {
@@ -81,7 +82,14 @@ public:
 		glPopMatrix();
 	}
 
-	void update() { ; }
+	void update() { 
+		centru.setY(centru.getY() - Scene::get_movement_speed());
+	}
+
+	Point get_pos() {
+		return centru;
+	}
+
 	void mouse(int button, int state, int x, int y) { ; }
 };
 

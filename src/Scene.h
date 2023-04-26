@@ -17,7 +17,7 @@ class Scene
 {
 private:
     static map<string, shared_ptr<Object>> objects;
-
+    static double movement_speed;
 public:
     static void add_object(const string name, shared_ptr<Object> obj)
     {
@@ -64,6 +64,11 @@ public:
     {
         return objects.size();
     }
+
+    static double get_movement_speed(void) {
+        return movement_speed;
+    }
 };
 
 map<string, shared_ptr<Object>> Scene::objects;
+double Scene::movement_speed = 0.1;

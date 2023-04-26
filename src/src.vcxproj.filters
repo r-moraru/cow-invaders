@@ -1019,6 +1019,9 @@
     <ClInclude Include="Hamburger.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Cows.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="include\glm\CMakeLists.txt">

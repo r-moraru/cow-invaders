@@ -1,6 +1,7 @@
 #define _USE_MATH_DEFINES
 
 #include <windows.h>
+#include <queue>
 #include <gl/freeglut.h>
 #include <iostream>
 #include <vector>
@@ -9,11 +10,17 @@
 #include <cmath>
 #include <fstream>
 #include "Cow.h"
+#include "Cows.h"
 #include "Hamburger.h"
 #include "Scene.h"
 #include "Screen.h"
 #include "Strada.h"
 using namespace std;
+
+bool game_loop() {
+    Scene::get_object("cows");
+    return true;
+}
 
 void main(int argc, char** argv)
 {
@@ -25,19 +32,12 @@ void main(int argc, char** argv)
     Cow::init();
     init();
 
-    // shared_ptr<Square> square1 = make_shared<Square>(Square(0, 100, 20, 0.05, 0, 0, -0.06));
     shared_ptr<Strada> strada = make_shared<Strada>(Strada(0));
-	// shared_ptr<Line> line1 = make_shared<Line>(Line(Screen::get_width() / 2, 0, Screen::get_width() / 2, Screen::get_height() / 2));
-    shared_ptr<Hamburger> hamburger = make_shared<Hamburger>(Hamburger(300, 300));
-    shared_ptr<Cow> cow1 = make_shared<Cow>(Cow(150, 150, 0, 1, 1, 1, false, 5));
-    shared_ptr<Cow> cow2 = make_shared<Cow>(Cow(450, 450, 0, 0, 0, 0, true, 10));
 
+    shared_ptr<Cows> cows = make_shared<Cows>(Cows());
 
-    // Scene::add_object("square1", square1);
     Scene::add_object("strada", strada);
-    Scene::add_object("xamburger", hamburger);
-    Scene::add_object("zow1", cow1);
-    Scene::add_object("zow2", cow2);
+    Scene::add_object("tcows", cows);
 
 
     glutIdleFunc(Scene::update);

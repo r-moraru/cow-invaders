@@ -58,7 +58,7 @@ public:
 	}
 
 	void update() {
-		poz_banda += 0.1;
+		poz_banda += Scene::get_movement_speed();
 		if (poz_banda >= 7 * 16) {
 			poz_banda = 0;
 		}
