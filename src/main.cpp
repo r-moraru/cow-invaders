@@ -350,6 +350,7 @@ public:
         glEnd();
 
         glPopMatrix();
+
     }
 
     void update()
@@ -374,7 +375,7 @@ void main(int argc, char** argv)
     glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB);
     glutInitWindowSize(800, 600);
     glutInitWindowPosition(100, 100);
-    glutCreateWindow("Patrat care se rostogoleste");
+    glutCreateWindow("Cow Invaders 2000");
     init();
 
     // shared_ptr<Square> square1 = make_shared<Square>(Square(0, 100, 20, 0.05, 0, 0, -0.06));
@@ -382,9 +383,9 @@ void main(int argc, char** argv)
 	// shared_ptr<Line> line1 = make_shared<Line>(Line(Screen::get_width() / 2, 0, Screen::get_width() / 2, Screen::get_height() / 2));
     shared_ptr<Hamburger> hamburger = make_shared<Hamburger>(Hamburger(300, 300));
 
-    Scene::add_object("Hamburger", hamburger);
     // Scene::add_object("square1", square1);
     Scene::add_object("strada", strada);
+    Scene::add_object("xamburger", hamburger);
 
     glutIdleFunc(Scene::update);
     glutDisplayFunc(Scene::draw);
