@@ -16,13 +16,20 @@ class Cow : public Object {
 private:
 	Point centru;
 	double unghi_rotatie;
-	int marime = 5;
+	int marime;
 	static vector<Point> puncte_vaca;
+	double culoareR, culoareG, culoareB;
+	bool ochi_rosu;
 public:
-	Cow(double centru_x, double centru_y, double unghi_rotatie) {
+	Cow(double centru_x, double centru_y, double unghi_rotatie, double culoareR, double culoareG, double culoareB, bool ochi_rosu, int marime) {
 		this->centru.setX(centru_x);
 		this->centru.setY(centru_y);
 		this->unghi_rotatie = unghi_rotatie;
+		this->culoareR = culoareR;
+		this->culoareG = culoareG;
+		this->culoareB = culoareB;
+		this->marime = marime;
+		this->ochi_rosu = ochi_rosu;
 	}
 
 	static void init() {
@@ -46,13 +53,28 @@ public:
 
 		glPointSize(1.0 * marime);
 		glBegin(GL_POINTS);
-		for (int i = 0; i < 140; i++) {
+		for (int i = 0; i < 136; i++) {
 			glVertex2i(puncte_vaca[i].getX() * marime, puncte_vaca[i].getY() * marime);
 		}
 		glColor3f(1, 0.65, 0.75);
-		for (int i = 140; i < puncte_vaca.size(); i++) {
+		for (int i = 136; i < 167; i++) {
 			glVertex2i(puncte_vaca[i].getX() * marime, puncte_vaca[i].getY() * marime);
 		}
+		glColor3f(culoareR, culoareG, culoareB);
+		for (int i = 167; i < 264; i++) {
+			glVertex2i(puncte_vaca[i].getX() * marime, puncte_vaca[i].getY() * marime);
+		}
+		if (ochi_rosu) {
+			glColor3f(1,0,0);
+		}
+		else {
+			glColor3f(0, 0, 0);
+		}
+		
+		for (int i = 264; i < puncte_vaca.size(); i++) {
+			glVertex2i(puncte_vaca[i].getX() * marime, puncte_vaca[i].getY() * marime);
+		}
+		
 		glEnd();
 		glFlush();
 
