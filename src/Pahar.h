@@ -22,7 +22,7 @@ public:
     double fall_acceleration;
     int fill;
 
-    Pahar(double x, double y) : centru(x, y), base_point(x, y), fill(10), max_jump_speed(0.1),
+    Pahar(double x, double y) : centru(x, y), base_point(x, y), fill(8), max_jump_speed(0.1),
         jump_speed(0.1), fall_acceleration(0.0002) { ; }
 
     void draw()
