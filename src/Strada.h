@@ -8,6 +8,7 @@
 #include <map>
 #include <exception>
 #include <cmath>
+#include <chrono>
 #include <fstream>
 #include "Object.h"
 #include "Screen.h"
@@ -58,7 +59,14 @@ public:
 	}
 
 	void update() {
-		poz_banda += Scene::get_movement_speed();
+		using namespace std::chrono;
+		uint64_t current_time = duration_cast<milliseconds>(system_clock::now().time_since_epoch()).count();
+		uint64_t delta_time = current_time - last_update;
+		last_update = current_time;
+
+		double delta_y = Scene::get_movement_speed() * delta_time;
+
+		poz_banda += delta_y;
 		if (poz_banda >= 7 * 16) {
 			poz_banda = 0;
 		}

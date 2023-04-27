@@ -6,6 +6,8 @@
 
 #include "Object.h"
 #include "Cow.h"
+#include "Healthbar.h"
+#include "Pahar.h"
 #include "Scene.h"
 #include "Screen.h"
 
@@ -33,8 +35,32 @@ public:
 		for (int i = cows.size() - 1; i >= 0; i--) {
 			if (cows[i].get_pos().getY() < -100) {
 				cows.erase(cows.begin()+i);
+				continue;
 			}
-			// TODO: check if any cow is consumed by glass and update score accordingly
+			shared_ptr<Pahar> pahar = dynamic_pointer_cast<Pahar>(Scene::get_object("zahar"));
+			for (auto punct : cows[i].get_puncte()) {
+				Point pos = cows[i].get_pos();
+				punct.setX(punct.getX() + pos.getX());
+				punct.setY(punct.getY() + pos.getY());
+				if (pahar->contine_punct(punct)) {
+					if (cows[i].has_red_eyes()) {
+						shared_ptr<Healthbar> healthbar = dynamic_pointer_cast<Healthbar>(Scene::get_object("zzz"));
+						if (healthbar->hp.size() == 0) {
+							return;
+						}
+						// todo: cum se termina jocul?
+						healthbar->hp.pop_back();
+					}
+					else {
+						if (pahar->fill == 10) {
+							return;
+						}
+						pahar->fill += 1;
+					}
+					cows.erase(cows.begin() + i);
+					break;
+				}
+			}
 		}
 	}
 

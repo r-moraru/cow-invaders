@@ -106,7 +106,12 @@ public:
 
     void update()
     {
-        angle += 0.05;
+        using namespace std::chrono;
+        uint64_t current_time = duration_cast<milliseconds>(system_clock::now().time_since_epoch()).count();
+        uint64_t delta_time = current_time - last_update;
+        last_update = current_time;
+
+        angle += 0.05 * delta_time;
         if (angle > 360)
         {
             angle = 0;

@@ -24,11 +24,6 @@ bool game_loop() {
     return true;
 }
 
-bool game_loop() {
-    Scene::get_object("cows");
-    return true;
-}
-
 void main(int argc, char **argv)
 {
     glutInit(&argc, argv);
@@ -54,16 +49,14 @@ void main(int argc, char **argv)
     Scene::add_object("strada", strada);
     Scene::add_object("tcows", cows);
     Scene::add_object("zahar", pahar);
-    Scene::add_object("zow1", cow1);
-    Scene::add_object("zow2", cow2);
     Scene::add_object("zzz", hbar);
 
-
     glutIdleFunc(Scene::update);
-    glutDisplayFunc(Scene::draw);
+    
     glutReshapeFunc(reshape);
     glutMouseFunc(Scene::mouse);
     glutSpecialFunc(Scene::keyPress);
     glutSpecialUpFunc(Scene::keyUp);
+    glutDisplayFunc(Scene::draw);
     glutMainLoop();
 }

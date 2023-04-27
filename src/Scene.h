@@ -86,4 +86,4 @@ public:
 };
 
 map<string, shared_ptr<Object>> Scene::objects;
-double Scene::movement_speed = 0.1;
+double Scene::movement_speed = 0.25;

@@ -8,6 +8,7 @@
 #include <map>
 #include <exception>
 #include <cmath>
+#include <chrono>
 #include <fstream>
 #include "Point.h"
 #include "Scene.h"
@@ -94,12 +95,26 @@ public:
 		glPopMatrix();
 	}
 
-	void update() { 
-		centru.setY(centru.getY() - Scene::get_movement_speed());
+	void update() {
+		using namespace std::chrono;
+		uint64_t current_time = duration_cast<milliseconds>(system_clock::now().time_since_epoch()).count();
+		uint64_t delta_time = current_time - last_update;
+		last_update = current_time;
+
+		double delta_y = Scene::get_movement_speed() * delta_time;
+		centru.setY(centru.getY() - delta_y);
 	}
 
 	Point get_pos() {
 		return centru;
+	}
+
+	bool has_red_eyes() {
+		return ochi_rosu;
+	}
+
+	vector<Point> get_puncte() {
+		return puncte_vaca;
 	}
 
 	void mouse(int button, int state, int x, int y) { ; }
