@@ -16,8 +16,8 @@ using namespace std;
 class Cows : public Object {
 public:
 	vector<Cow> cows;
-	time_t last_spawn, spawn_wait;
-	Cows() : last_spawn(time(NULL)), spawn_wait(3.0) { srand(time(NULL)); }
+	uint64_t last_spawn, spawn_wait;
+	Cows() : last_spawn(0), spawn_wait(3000) { srand(time(NULL)); }
 
 	void draw() {
 		for (auto& cow : cows) {
@@ -74,15 +74,16 @@ public:
 	void mouse(int button, int state, int x, int y) { ; }
 
 	void spawn_cow() {
-		if (time(NULL) < last_spawn + spawn_wait) {
+		using namespace std::chrono;
+		uint64_t current_time = duration_cast<milliseconds>(system_clock::now().time_since_epoch()).count();
+		if (current_time < last_spawn + spawn_wait) {
 			return;
 		}
 
 		int spawn_pos = rand() % (Screen::get_width() - 50) + 50;
-		spawn_wait = static_cast<time_t>(((rand() % 3) + 1) * (1.0f - 0.1f * Scene::lvl));
-		cout << spawn_wait << endl;
+		spawn_wait = rand() % 3000 + 1000 - 90 * max(10, Scene::lvl);
 
-		last_spawn = time(NULL);
+		last_spawn = duration_cast<milliseconds>(system_clock::now().time_since_epoch()).count();
 
 		cows.push_back(Cow(spawn_pos, Screen::get_height()+100.0, 0,
 			(rand() % 100) / 99.0, (rand() % 100) / 99.0, (rand() % 100) / 99.0,

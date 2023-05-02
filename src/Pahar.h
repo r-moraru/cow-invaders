@@ -138,10 +138,10 @@ public:
     void keyPress(int key, int x, int y) {
         switch (key) {
         case GLUT_KEY_LEFT:
-            x_speed = -0.2;
+            x_speed = -0.2 - 0.02 * Scene::lvl;
             break;
         case GLUT_KEY_RIGHT:
-            x_speed = 0.2;
+            x_speed = 0.2 + 0.02 * Scene::lvl;
             break;
         default:
             break;
@@ -152,8 +152,8 @@ public:
     bool contine_punct(Point punct) {
         Point A(0 + centru.getX(), 0 + centru.getY() + jump_height);
         Point B(0 + centru.getX(), -150 + centru.getY() + jump_height);
-        Point D(-75 + centru.getX(), 0 + centru.getY() + jump_height);
         Point C(-75 + centru.getX(), -150 + centru.getY() + jump_height);
+        Point D(-75 + centru.getX(), 0 + centru.getY() + jump_height);
         return punct_in_dreptunghi(A, B, C, D, punct);
     }
 };
