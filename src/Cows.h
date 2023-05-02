@@ -14,11 +14,10 @@
 using namespace std;
 
 class Cows : public Object {
-private:
+public:
 	vector<Cow> cows;
 	time_t last_spawn, spawn_wait;
-public:
-	Cows() : last_spawn(time(NULL)), spawn_wait(2.0) { srand(time(NULL)); }
+	Cows() : last_spawn(time(NULL)), spawn_wait(3.0) { srand(time(NULL)); }
 
 	void draw() {
 		for (auto& cow : cows) {
@@ -59,6 +58,8 @@ public:
 						if (pahar->fill == 10) {
 							pahar->fill = 0;
 							healthbar->scor += 25;
+							Scene::lvl += 1;
+							Scene::movement_speed += 0.1;
 						}
 						pahar->fill += 1;
 						healthbar->scor += cows[i].marime;
@@ -78,7 +79,9 @@ public:
 		}
 
 		int spawn_pos = rand() % (Screen::get_width() - 50) + 50;
-		spawn_wait = (rand() % 4 + 1) / 2.0 + 1;
+		spawn_wait = static_cast<time_t>(((rand() % 3) + 1) * (1.0f - 0.1f * Scene::lvl));
+		cout << spawn_wait << endl;
+
 		last_spawn = time(NULL);
 
 		cows.push_back(Cow(spawn_pos, Screen::get_height()+100.0, 0,

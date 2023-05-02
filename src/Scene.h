@@ -19,8 +19,9 @@ class Scene
 {
 private:
     static map<string, shared_ptr<Object>> objects;
-    static double movement_speed;
 public:
+    static double movement_speed;
+    static int lvl;
     static bool playing;
     static void add_object(const string name, shared_ptr<Object> obj)
     {
@@ -56,6 +57,9 @@ public:
             char str[20];
             snprintf(str, sizeof(str), "SCORE: %d", healthbar->scor);
             Scene::displayText(healthbar->centru.getX() - 15, healthbar->centru.getY() - 50, str);
+
+            snprintf(str, sizeof(str), "LEVEL: %d", lvl);
+            Scene::displayText(healthbar->centru.getX() - 15, healthbar->centru.getY() - 75, str);
         }
         else {
             glClearColor(0, 0, 0, 1);
@@ -105,6 +109,7 @@ public:
         return movement_speed;
     }
 
+
     static void displayText(int x, int y, const char* string)
     {
         glColor4f(1.0f, 1.0f, 1.0f, 0.8);
@@ -119,3 +124,4 @@ public:
 map<string, shared_ptr<Object>> Scene::objects;
 double Scene::movement_speed = 0.25;
 bool Scene::playing = TRUE;
+int Scene::lvl = 1;
