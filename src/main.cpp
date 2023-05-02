@@ -52,11 +52,11 @@ void main(int argc, char **argv)
     Scene::add_object("zzz", hbar);
 
     glutIdleFunc(Scene::update);
-    
     glutReshapeFunc(reshape);
     glutMouseFunc(Scene::mouse);
     glutSpecialFunc(Scene::keyPress);
     glutSpecialUpFunc(Scene::keyUp);
     glutDisplayFunc(Scene::draw);
+
     glutMainLoop();
 }

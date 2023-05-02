@@ -16,7 +16,8 @@ using namespace std;
 
 class Cow : public Object
 {
-private:
+public:
+
 	Point centru;
 	double unghi_rotatie;
 	int marime;
@@ -24,7 +25,6 @@ private:
 	double culoareR, culoareG, culoareB;
 	bool ochi_rosu;
 
-public:
 	Cow(double centru_x, double centru_y, double unghi_rotatie, double culoareR, double culoareG, double culoareB, bool ochi_rosu, int marime)
 	{
 		this->centru.setX(centru_x);

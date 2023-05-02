@@ -43,19 +43,25 @@ public:
 				punct.setX(punct.getX() + pos.getX());
 				punct.setY(punct.getY() + pos.getY());
 				if (pahar->contine_punct(punct)) {
+					shared_ptr<Healthbar> healthbar = dynamic_pointer_cast<Healthbar>(Scene::get_object("zzz"));
 					if (cows[i].has_red_eyes()) {
-						shared_ptr<Healthbar> healthbar = dynamic_pointer_cast<Healthbar>(Scene::get_object("zzz"));
 						if (healthbar->hp.size() == 0) {
 							return;
 						}
-						// todo: cum se termina jocul?
+						// radu-> todo: cum se termina jocul?
+						// licu-> am facut dar foarte prost scuze
 						healthbar->hp.pop_back();
+						if (!healthbar->hp.size()) {
+							Scene::playing = FALSE;
+						}
 					}
 					else {
 						if (pahar->fill == 10) {
-							return;
+							pahar->fill = 0;
+							healthbar->scor += 25;
 						}
 						pahar->fill += 1;
+						healthbar->scor += cows[i].marime;
 					}
 					cows.erase(cows.begin() + i);
 					break;
